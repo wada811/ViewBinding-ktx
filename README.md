@@ -3,6 +3,8 @@ ViewBinding-ktx
 
 `ViewBinding-ktx` make easy declaring ViewBinding.
 
+[DataBinding-ktx](https://github.com/wada811/DataBinding-ktx) is here.
+
 ## Problems in ViewBinding
 - Differences in the way of declaring a `binding` variable in Activity and Fragment.
     - In Activity, you can declare the `binding` variable using `by lazy`.
