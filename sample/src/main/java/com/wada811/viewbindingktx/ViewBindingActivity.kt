@@ -6,7 +6,7 @@ import com.wada811.viewbinding.viewBinding
 import com.wada811.viewbindingktx.databinding.ViewBindingActivityBinding
 
 class ViewBindingActivity : AppCompatActivity(R.layout.view_binding_activity) {
-    private val binding by viewBinding(ViewBindingActivityBinding::bind)
+    private val binding :ViewBindingActivityBinding by viewBinding()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.button.setOnClickListener {

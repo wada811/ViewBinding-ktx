@@ -8,7 +8,7 @@ import com.wada811.viewbindingktx.databinding.ViewBindingFragmentBinding
 import com.wada811.viewbindingktx.databinding.ViewStubBinding
 
 class ViewBindingFragment : Fragment(R.layout.view_stub) {
-    private val viewStubBinding by viewBinding(ViewStubBinding::bind)
+    private val viewStubBinding: ViewStubBinding by viewBinding()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewStubBinding.viewStub.setOnInflateListener { stub, inflated ->

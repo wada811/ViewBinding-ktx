@@ -15,22 +15,37 @@ ViewBinding-ktx
       For saving memory, you should set the `binding` variable to null after onDestroyView.
 
 ## Overview
-- `ViewBinding-ktx` provide the unified way of declaring the `binding` variable in Activity and Fragment.
-- `ViewBinding-ktx` is saving memory because of cleaning up the `binding` variable having the view tree after onDestroyView.
-- `ViewBinding-ktx` needs one of the following
+`ViewBinding-ktx`
+- provides the unified way of declaring the `binding` variable
+    - between Activity and Fragment.
+    - between DataBinding-ktx and ViewBinding-ktx.
+- is saving memory
+    - The `binding` variable is stored as the Fragment's view's tag.
+    - The `binding` variable is cleaning up along with the Fragment's view after onDestroyView.
+- needs one of the following
     - calling `setContentView` in Activity and calling `inflater.inflate` in `onCreateView` of Fragment.
     - calling Activity/Fragment's secondary constructor passing layout res id.
 
-## Usage 
+## Usage
+
+### Reflection
+
+```kotlin
+private val binding: ViewBindingActivityBinding by viewBinding()
+```
+
+### No reflection
+
 ```kotlin
 private val binding by viewBinding { ViewBindingActivityBinding.bind(it) }
 ```
+
 ### Activity
 - Use Activity's secondary constructor passing layout res id.
 ```kotlin
 class ViewBindingActivity : AppCompatActivity(R.layout.view_binding_activity) {
     // Declare the `binding` variable using `by viewBinding()`.
-    private val binding by viewBinding(ViewBindingActivityBinding::bind)
+    private val binding: ViewBindingActivityBinding by viewBinding()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // You can use binding
@@ -43,43 +58,7 @@ class ViewBindingActivity : AppCompatActivity(R.layout.view_binding_activity) {
 ```kotlin
 class ViewBindingFragment : Fragment(R.layout.view_binding_fragment) {
     // Declare the `binding` variable using `by viewBinding()`.
-    private val binding by viewBinding(ViewBindingFragmentBinding::bind)
-    // DO NOT override onCreateView
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // You can use binding
-    }
-}
-```
-
-
-## Note
-### Activity
-- If you forget to use Activity's secondary constructor passing layout res id, your app crash.
-
-```kotlin
-// You can define and use ViewBindingAppCompatActivity for not forgetting.
-open class ViewBindingAppCompatActivity<T : ViewBinding>(@LayoutRes contentLayoutId: Int, bind: (View) -> T) : AppCompatActivity(contentLayoutId) {
-    protected val binding by viewBinding(bind)
-}
-
-class YourActivity : ViewBindingAppCompatActivity<YourActivityBinding>(R.layout.your_activity, YourActivityBinding::bind) {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // You can use binding
-    }
-}
-```
-
-### Fragment
-- If you forget to use Fragment's secondary constructor passing layout res id, Fragment is not shown.
-
-```kotlin
-// You can define and use ViewBindingFragment for not forgetting.
-open class ViewBindingFragment<T : ViewBinding>(@LayoutRes contentLayoutId : Int, bind: (View) -> T) : Fragment(contentLayoutId) {
-    protected val binding: T by viewBinding(bind)
-} 
-class YourFragment : ViewBindingFragment<YourFragmentBinding>(R.layout.your_fragment) {
+    private val binding: ViewBindingFragmentBinding by viewBinding()
     // DO NOT override onCreateView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
