@@ -1,9 +1,11 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
+    defaultConfig {
+        minSdkVersion 15
+    }
     buildFeatures {
         viewBinding = true
     }
