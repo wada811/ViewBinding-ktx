@@ -11,7 +11,7 @@ class ViewBindingFragment : Fragment(R.layout.view_stub) {
     private val viewStubBinding: ViewStubBinding by viewBinding()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewStubBinding.viewStub.setOnInflateListener { stub, inflated ->
+        viewStubBinding.viewStub.setOnInflateListener { _, inflated ->
             val binding = ViewBindingFragmentBinding.bind(inflated)
             binding.text.text = requireArguments().getString(EXTRA_TEXT)
         }
