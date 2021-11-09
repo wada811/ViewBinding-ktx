@@ -1,71 +1,35 @@
 ViewBinding-ktx
 =====
 
-`ViewBinding-ktx` make easy declaring ViewBinding.
+`ViewBinding-ktx` make easy to use ViewBinding.
 
 [DataBinding-ktx](https://github.com/wada811/DataBinding-ktx) is here.
 
-## Problems in ViewBinding
-- Differences in the way of declaring a `binding` variable in Activity and Fragment.
-    - In Activity, you can declare the `binding` variable using `by lazy`.
-    - In Fragment, you can't declare the `binding` variable using `by lazy` because of recreating Fragment's view.
-- Wasted memory unless you set the `binding` variable to null after onDestroyView
-    - If you use Navigation component, BackStack or detach in Fragment, Fragment is still alive but Fragment's view is dead after onDestroyView.
-      Because the `binding` variable has view tree, your app wasted memory.
-      For saving memory, you should set the `binding` variable to null after onDestroyView.
-
 ## Overview
-`ViewBinding-ktx`
-- provides the unified way of declaring the `binding` variable
-    - between Activity and Fragment.
-    - between DataBinding-ktx and ViewBinding-ktx.
-- is saving memory
-    - The `binding` variable is stored as the Fragment's view's tag.
-    - The `binding` variable is cleaning up along with the Fragment's view after onDestroyView.
-- needs one of the following
-    - calling `setContentView` in Activity and calling `inflater.inflate` in `onCreateView` of Fragment.
-    - calling Activity/Fragment's secondary constructor passing layout res id.
+
+- `ViewBinding-ktx` provides `withBinding` method accessing the `binding` variable by lambda.
+- `ViewBinding-ktx` provides `viewBinding` method accessing the `binding` variable by delegated property.
 
 ## Usage
 
-### Reflection
+### Lambda
 
 ```kotlin
-private val binding: ViewBindingActivityBinding by viewBinding()
-```
+withBinding<ViewBindingActivityBinding> { binding ->
 
-### No reflection
-
-```kotlin
-private val binding by viewBinding { ViewBindingActivityBinding.bind(it) }
-```
-
-### Activity
-- Use Activity's secondary constructor passing layout res id.
-```kotlin
-class ViewBindingActivity : AppCompatActivity(R.layout.view_binding_activity) {
-    // Declare the `binding` variable using `by viewBinding()`.
-    private val binding: ViewBindingActivityBinding by viewBinding()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // You can use binding
-    }
 }
 ```
 
-### Fragment
-- Use Fragment's secondary constructor passing layout res id.
+### Delegated Property
+
 ```kotlin
-class ViewBindingFragment : Fragment(R.layout.view_binding_fragment) {
-    // Declare the `binding` variable using `by viewBinding()`.
-    private val binding: ViewBindingFragmentBinding by viewBinding()
-    // DO NOT override onCreateView
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // You can use binding
-    }
-}
+private val binding: ViewBindingActivityBinding by viewBinding() // reflection
+private val binding by viewBinding { ViewBindingActivityBinding.bind(it) } // no reflection
 ```
+
+Note:
+In Fragment, When fragment's view is destroyed, an IllegalStateException is thrown on accessing the binding property.  
+If you access the binding property when fragment's view may be destroyed, you must use the Lambda way above.
 
 ## Gradle
 
@@ -74,7 +38,7 @@ class ViewBindingFragment : Fragment(R.layout.view_binding_fragment) {
 ```groovy
 android {
     buildFeatures {
-        viewBinding = true
+        viewBinding true
     }
 }
 
