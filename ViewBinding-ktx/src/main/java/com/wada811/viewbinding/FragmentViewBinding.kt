@@ -33,3 +33,12 @@ fun <T : ViewBinding> Fragment.viewBinding(bind: (View) -> T): ReadOnlyProperty<
     }
 }
 
+inline fun <reified T : ViewBinding> Fragment.withBinding(withBinding: (binding: T) -> Unit) {
+    view?.let { view ->
+        val bind: (View) -> T = {
+            T::class.java.getMethod("bind", View::class.java).invoke(null, it) as T
+        }
+        val binding = bind(view)
+        withBinding(binding)
+    }
+}
