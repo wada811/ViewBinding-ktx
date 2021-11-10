@@ -15,6 +15,11 @@ ViewBinding-ktx
 ### Lambda
 
 ```kotlin
+// no reflection
+withBinding(ViewBindingActivityBinding::bind) { binding ->
+
+}
+// reflection
 withBinding<ViewBindingActivityBinding> { binding ->
 
 }
@@ -23,8 +28,8 @@ withBinding<ViewBindingActivityBinding> { binding ->
 ### Delegated Property
 
 ```kotlin
+private val binding by viewBinding(ViewBindingActivityBinding::bind) // no reflection
 private val binding: ViewBindingActivityBinding by viewBinding() // reflection
-private val binding by viewBinding { ViewBindingActivityBinding.bind(it) } // no reflection
 ```
 
 Note:
