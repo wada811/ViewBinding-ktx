@@ -33,7 +33,7 @@ afterEvaluate {
                 from components.release
                 groupId = "com.github.wada811"
                 artifactId = "ViewBinding-ktx"
-                version = "2.0.0"
+                version = "2.1.0"
             }
         }
     }
