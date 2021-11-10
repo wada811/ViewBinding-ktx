@@ -8,26 +8,14 @@ import com.wada811.viewbindingktx.databinding.ViewBindingActivityBinding
 class ViewBindingActivity : AppCompatActivity(R.layout.view_binding_activity) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        withBinding<ViewBindingActivityBinding> { binding ->
-            binding.button.setOnClickListener {
-                val fragment = supportFragmentManager.findFragmentById(R.id.fragment)!!
-                if (fragment.isDetached) {
-                    binding.button.text = "Detach"
-                    supportFragmentManager.beginTransaction()
-                        .attach(fragment)
-                        .commit()
-                } else {
-                    binding.button.text = "Attach"
-                    supportFragmentManager.beginTransaction()
-                        .detach(fragment)
-                        .commit()
+        withBinding(ViewBindingActivityBinding::bind) { binding ->
+            binding.textView.text = """
+                withBinding(ViewBindingActivityBinding::bind) { binding ->
+                    // You can use binding
                 }
-            }
-        }
-        if (savedInstanceState == null) {
-            val text = "Fragment is attached."
+            """.trimIndent()
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment, ViewBindingFragment.newInstance(text), text)
+                .replace(binding.fragment.id, ViewBindingFragment())
                 .commit()
         }
     }
