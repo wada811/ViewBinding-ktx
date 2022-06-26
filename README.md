@@ -8,7 +8,7 @@ ViewBinding-ktx
 ## Overview
 
 - `ViewBinding-ktx` provides `withBinding` method accessing the `binding` variable by lambda.
-- `ViewBinding-ktx` provides `viewBinding` method accessing the `binding` variable by delegated property.
+- [Deprecated] `ViewBinding-ktx` provides `viewBinding` method accessing the `binding` variable by delegated property.
 
 ## Usage
 
@@ -25,7 +25,7 @@ withBinding<ViewBindingActivityBinding> { binding ->
 }
 ```
 
-### Delegated Property
+### [Deprecated] Delegated Property
 
 ```kotlin
 private val binding by viewBinding(ViewBindingActivityBinding::bind) // no reflection

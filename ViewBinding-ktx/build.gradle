@@ -1,12 +1,16 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'maven-publish'
+plugins {
+    id 'com.android.library'
+    id 'com.diffplug.spotless'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
+    id 'maven-publish'
+}
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 31
+        targetSdkVersion 32
     }
     buildFeatures {
         viewBinding true
@@ -21,7 +25,7 @@ android {
 }
 
 dependencies {
-    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0"
     //noinspection GradleDependency
     implementation 'androidx.fragment:fragment-ktx:1.1.0'
 }
@@ -33,9 +37,8 @@ afterEvaluate {
                 from components.release
                 groupId = "com.github.wada811"
                 artifactId = "ViewBinding-ktx"
-                version = "2.1.0"
+                version = "2.2.0"
             }
         }
     }
 }
-

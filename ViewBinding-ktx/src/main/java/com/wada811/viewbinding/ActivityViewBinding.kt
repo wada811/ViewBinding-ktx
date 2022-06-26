@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
 
+@Deprecated("Use withBinding", level = DeprecationLevel.WARNING)
 inline fun <reified T : ViewBinding> FragmentActivity.viewBinding(): Lazy<T> {
     return viewBinding {
         T::class.java.getMethod("bind", View::class.java).invoke(null, it) as T
     }
 }
 
+@Deprecated("Use withBinding", level = DeprecationLevel.WARNING)
 fun <T : ViewBinding> FragmentActivity.viewBinding(bind: (View) -> T): Lazy<T> {
     return lazy(LazyThreadSafetyMode.NONE) {
         val getContentView: FragmentActivity.() -> View = {

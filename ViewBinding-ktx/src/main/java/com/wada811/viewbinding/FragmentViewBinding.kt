@@ -6,12 +6,14 @@ import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
+@Deprecated("Use withBinding", level = DeprecationLevel.WARNING)
 inline fun <reified T : ViewBinding> Fragment.viewBinding(): ReadOnlyProperty<Fragment, T> {
     return viewBinding {
         T::class.java.getMethod("bind", View::class.java).invoke(null, it) as T
     }
 }
 
+@Deprecated("Use withBinding", level = DeprecationLevel.WARNING)
 fun <T : ViewBinding> Fragment.viewBinding(bind: (View) -> T): ReadOnlyProperty<Fragment, T> {
     return object : ReadOnlyProperty<Fragment, T> {
         @Suppress("UNCHECKED_CAST")
