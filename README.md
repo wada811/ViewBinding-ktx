@@ -25,7 +25,7 @@ withBinding<ViewBindingActivityBinding> { binding ->
 }
 ```
 
-### [Deprecated] Delegated Property
+### Delegated Property
 
 ```kotlin
 private val binding by viewBinding(ViewBindingActivityBinding::bind) // no reflection
@@ -38,7 +38,7 @@ If you access the binding property when fragment's view may be destroyed, you mu
 
 ## Gradle
 
-[![](https://jitpack.io/v/wada811/ViewBinding-ktx.svg)](https://jitpack.io/#wada811/ViewBinding-ktx)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.wada811.viewbindingktx/viewbindingktx/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.wada811.viewbindingktx/viewbindingktx)
 
 ```groovy
 android {
@@ -48,12 +48,30 @@ android {
 }
 
 repositories {
-    maven { url "https://www.jitpack.io" }
+    mavenCentral()
 }
 
 dependencies {
-    implementation 'com.github.wada811:ViewBinding-ktx:x.y.z'
+    implementation 'com.wada811.viewbindingktx:viewbindingktx:x.y.z'
 }
+```
+
+## Migrations
+
+### 3.0.0
+
+#### dependencies
+
+```diff
+-    implementation 'com.github.wada811:ViewBinding-ktx:x.y.z'
++    implementation 'com.wada811.viewbindingktx:viewbindingktx:x.y.z'
+```
+
+#### package
+
+```diff
+-import com.wada811.viewbinding
++import com.wada811.viewbindingktx
 ```
 
 ## License

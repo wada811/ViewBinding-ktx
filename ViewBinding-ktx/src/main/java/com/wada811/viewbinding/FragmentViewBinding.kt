@@ -3,38 +3,14 @@ package com.wada811.viewbinding
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.wada811.viewbindingktx.viewBinding
+import com.wada811.viewbindingktx.withBinding
 import kotlin.properties.ReadOnlyProperty
-import kotlin.reflect.KProperty
 
-@Deprecated("Use withBinding", level = DeprecationLevel.WARNING)
-inline fun <reified T : ViewBinding> Fragment.viewBinding(): ReadOnlyProperty<Fragment, T> {
-    return viewBinding {
-        T::class.java.getMethod("bind", View::class.java).invoke(null, it) as T
-    }
-}
+inline fun <reified T : ViewBinding> Fragment.viewBinding(): ReadOnlyProperty<Fragment, T> = this.viewBinding()
 
-@Deprecated("Use withBinding", level = DeprecationLevel.WARNING)
-fun <T : ViewBinding> Fragment.viewBinding(bind: (View) -> T): ReadOnlyProperty<Fragment, T> {
-    return object : ReadOnlyProperty<Fragment, T> {
-        @Suppress("UNCHECKED_CAST")
-        override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
-            (requireView().getTag(R.id.view_binding_tag) as? T)?.let { return it }
-            return bind(requireView()).also {
-                requireView().setTag(R.id.view_binding_tag, it)
-            }
-        }
-    }
-}
+fun <T : ViewBinding> Fragment.viewBinding(bind: (View) -> T): ReadOnlyProperty<Fragment, T> = this.viewBinding(bind)
 
-inline fun <reified T : ViewBinding> Fragment.withBinding(noinline withBinding: (binding: T) -> Unit) {
-    withBinding({
-        T::class.java.getMethod("bind", View::class.java).invoke(null, it) as T
-    }, withBinding)
-}
+inline fun <reified T : ViewBinding> Fragment.withBinding(noinline withBinding: (binding: T) -> Unit) = this.withBinding(withBinding)
 
-fun <T : ViewBinding> Fragment.withBinding(bind: (View) -> T, withBinding: (binding: T) -> Unit) {
-    view?.let { view ->
-        val binding = bind(view)
-        withBinding(binding)
-    }
-}
+fun <T : ViewBinding> Fragment.withBinding(bind: (View) -> T, withBinding: (binding: T) -> Unit) = this.withBinding(bind, withBinding)

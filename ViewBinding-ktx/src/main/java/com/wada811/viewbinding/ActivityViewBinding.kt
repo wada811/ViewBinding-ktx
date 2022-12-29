@@ -3,43 +3,20 @@
 package com.wada811.viewbinding
 
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.viewbinding.ViewBinding
+import com.wada811.viewbindingktx.viewBinding
+import com.wada811.viewbindingktx.withBinding
 
-@Deprecated("Use withBinding", level = DeprecationLevel.WARNING)
-inline fun <reified T : ViewBinding> FragmentActivity.viewBinding(): Lazy<T> {
-    return viewBinding {
-        T::class.java.getMethod("bind", View::class.java).invoke(null, it) as T
-    }
-}
+@Deprecated("Import com.wada811.viewbindingktx", ReplaceWith("viewBinding()", "com.wada811.viewbindingktx.viewBinding"))
+inline fun <reified T : ViewBinding> FragmentActivity.viewBinding(): Lazy<T> = this.viewBinding()
 
-@Deprecated("Use withBinding", level = DeprecationLevel.WARNING)
-fun <T : ViewBinding> FragmentActivity.viewBinding(bind: (View) -> T): Lazy<T> {
-    return lazy(LazyThreadSafetyMode.NONE) {
-        val getContentView: FragmentActivity.() -> View = {
-            checkNotNull(findViewById<ViewGroup>(android.R.id.content).getChildAt(0)) {
-                "Call setContentView or Use Activity's secondary constructor passing layout res id."
-            }
-        }
-        bind(getContentView())
-    }
-}
+@Deprecated("Import com.wada811.viewbindingktx", ReplaceWith("viewBinding(bind)", "com.wada811.viewbindingktx.viewBinding"))
+fun <T : ViewBinding> FragmentActivity.viewBinding(bind: (View) -> T): Lazy<T> = this.viewBinding(bind)
 
-inline fun <reified T : ViewBinding> FragmentActivity.withBinding(noinline withBinding: (binding: T) -> Unit) {
-    withBinding({
-        T::class.java.getMethod("bind", View::class.java).invoke(null, it) as T
-    }, withBinding)
-}
+@Deprecated("Import com.wada811.viewbindingktx", ReplaceWith("withBinding(block)", "com.wada811.viewbindingktx.withBinding"))
+inline fun <reified T : ViewBinding> FragmentActivity.withBinding(noinline block: (binding: T) -> Unit) = this.withBinding(block)
 
-
-fun <T : ViewBinding> FragmentActivity.withBinding(bind: (View) -> T, withBinding: (binding: T) -> Unit) {
-    val getContentView: FragmentActivity.() -> View = {
-        checkNotNull(findViewById<ViewGroup>(android.R.id.content).getChildAt(0)) {
-            "Call setContentView or Use Activity's secondary constructor passing layout res id."
-        }
-    }
-    val binding = bind(getContentView())
-    withBinding(binding)
-}
+@Deprecated("Import com.wada811.viewbindingktx", ReplaceWith("withBinding(bind, block)", "com.wada811.viewbindingktx.withBinding"))
+fun <T : ViewBinding> FragmentActivity.withBinding(bind: (View) -> T, block: (binding: T) -> Unit) = this.withBinding(bind, block)
 
