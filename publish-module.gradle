@@ -44,7 +44,7 @@ afterEvaluate {
 
                 pom {
                     name = PUBLISH_ARTIFACT_ID
-                    description = 'DataBinding-ktx make easy to use DataBinding.'
+                    description = 'ViewBinding-ktx make easy to use ViewBinding.'
                     url = 'https://github.com/wada811/ViewBinding-ktx'
 
                     licenses {
