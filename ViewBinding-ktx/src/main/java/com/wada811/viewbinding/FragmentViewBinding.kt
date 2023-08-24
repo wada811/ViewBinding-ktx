@@ -7,10 +7,14 @@ import com.wada811.viewbindingktx.viewBinding
 import com.wada811.viewbindingktx.withBinding
 import kotlin.properties.ReadOnlyProperty
 
+@Deprecated("Import com.wada811.viewbindingktx", ReplaceWith("viewBinding()", "com.wada811.viewbindingktx.viewBinding"))
 inline fun <reified T : ViewBinding> Fragment.viewBinding(): ReadOnlyProperty<Fragment, T> = this.viewBinding()
 
+@Deprecated("Import com.wada811.viewbindingktx", ReplaceWith("viewBinding(bind)", "com.wada811.viewbindingktx.viewBinding"))
 fun <T : ViewBinding> Fragment.viewBinding(bind: (View) -> T): ReadOnlyProperty<Fragment, T> = this.viewBinding(bind)
 
-inline fun <reified T : ViewBinding> Fragment.withBinding(noinline withBinding: (binding: T) -> Unit) = this.withBinding(withBinding)
+@Deprecated("Import com.wada811.viewbindingktx", ReplaceWith("viewBinding(block)", "com.wada811.viewbindingktx.viewBinding"))
+inline fun <reified T : ViewBinding> Fragment.withBinding(noinline block: (binding: T) -> Unit) = this.withBinding(block)
 
-fun <T : ViewBinding> Fragment.withBinding(bind: (View) -> T, withBinding: (binding: T) -> Unit) = this.withBinding(bind, withBinding)
+@Deprecated("Import com.wada811.viewbindingktx", ReplaceWith("viewBinding(bind, block)", "com.wada811.viewbindingktx.viewBinding"))
+fun <T : ViewBinding> Fragment.withBinding(bind: (View) -> T, block: (binding: T) -> Unit) = this.withBinding(bind, block)
