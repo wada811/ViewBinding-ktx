@@ -4,7 +4,7 @@ apply plugin: 'signing'
 ext {
     PUBLISH_GROUP_ID = 'com.wada811.viewbindingktx'
     PUBLISH_ARTIFACT_ID = 'viewbindingktx'
-    PUBLISH_VERSION = '3.0.0'
+    PUBLISH_VERSION = '3.1.0'
 }
 
 android {
