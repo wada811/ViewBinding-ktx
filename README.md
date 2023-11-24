@@ -1,18 +1,18 @@
 ViewBinding-ktx
 =====
 
-`ViewBinding-ktx` make easy to use ViewBinding.
+`ViewBinding-ktx` makes it easy to use ViewBinding.
 
 [DataBinding-ktx](https://github.com/wada811/DataBinding-ktx) is here.
 
 ## Overview
 
-- `ViewBinding-ktx` provides `withBinding` method accessing the `binding` variable by lambda.
-- [Deprecated] `ViewBinding-ktx` provides `viewBinding` method accessing the `binding` variable by delegated property.
+- `ViewBinding-ktx` provides the `withBinding` method accessing the `binding` variable by lambda.
+- `ViewBinding-ktx` provides the `viewBinding` method accessing the `binding` variable by delegated property.
 
 ## Usage
 
-### Lambda
+### Lambda (Recommended)
 
 ```kotlin
 // no reflection
@@ -33,8 +33,8 @@ private val binding: ViewBindingActivityBinding by viewBinding() // reflection
 ```
 
 Note:
-In Fragment, When fragment's view is destroyed, an IllegalStateException is thrown on accessing the binding property.  
-If you access the binding property when fragment's view may be destroyed, you must use the Lambda way above.
+In Fragment, When the fragment's view is destroyed, an IllegalStateException is thrown on accessing the binding property.  
+If you access the binding property when the fragment's view may be destroyed, you must use the Lambda way above.
 
 ## Gradle
 
