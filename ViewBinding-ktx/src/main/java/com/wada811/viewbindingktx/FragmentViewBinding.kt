@@ -28,13 +28,13 @@ private val KProperty<*>.key: Int
     get() = name.hashCode()
 
 
-inline fun <reified T : ViewBinding> Fragment.withBinding(noinline withBinding: (binding: T) -> Unit) {
+inline fun <reified T : ViewBinding> Fragment.withBinding(withBinding: (binding: T) -> Unit) {
     withBinding({
         T::class.java.getMethod("bind", View::class.java).invoke(null, it) as T
     }, withBinding)
 }
 
-fun <T : ViewBinding> Fragment.withBinding(bind: (View) -> T, withBinding: (binding: T) -> Unit) {
+inline fun <T : ViewBinding> Fragment.withBinding(bind: (View) -> T, withBinding: (binding: T) -> Unit) {
     view?.let { view ->
         val binding = bind(view)
         withBinding(binding)
